@@ -1,0 +1,10 @@
+# R / RStudio
+.Rproj.user/
+.Rhistory
+.RData
+.Ruserdata
+
+# renv library (large, reproducible from renv.lock)
+renv/library/
+renv/staging/
+renv/cellar/
