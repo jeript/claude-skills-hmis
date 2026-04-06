@@ -163,4 +163,5 @@ For detailed specifications on complex topics, read these reference files:
 - `references/income-annual-assessment.md` - 7-row income determination table, 10-step annual assessment selection
 - `references/data-quality-report.md` - HMIS Data Quality Report Q1-Q7 programming instructions
 - `references/active-clients-methods-3-5.md` - Full pseudocode for Methods 3 and 5
+- `references/exit-destinations.md` - Exit destination classification matrix (which destinations are positive/excluded by project type)
 - `references/appendix-crosswalk.md` - Federal Reports and Glossary Crosswalk table
