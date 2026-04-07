@@ -1,6 +1,12 @@
 # Appendix A: Exit Destinations
 
-X = exclude client from measure entirely. Checkmark = include as positive/acceptable destination. Blank = include in universe but not as positive destination. Undefined project types should use "HP & PH (all)" column.
+All exit destinations are used (i.e., all clients remain in the universe) EXCEPT when calculating positive destinations. The matrix below applies when determining positive exits:
+
+- **+ (positive)**: Destination counts as a positive/successful exit for that project type
+- **X (exclude)**: Client is excluded from the measure universe entirely (not counted at all)
+- **Blank**: Client remains in the universe but this destination is NOT counted as a positive exit
+
+Undefined project types should use the "HP & PH (all)" column when determining positive exit destinations.
 
 ## Homeless Situations (100-199)
 
