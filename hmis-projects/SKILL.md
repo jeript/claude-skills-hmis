@@ -89,6 +89,22 @@ pit_inventory <- inventory_fixed %>%
 
 **Inventory fluctuates over time.** Each record has `InventoryStartDate` and `InventoryEndDate`. See `references/inventory-details.md` for full rules.
 
+**Inventory records are tied to a specific CoC Code.** Projects operating in multiple CoCs have separate inventory records per CoC. Always join/filter inventory through CoCCode when doing CoC-level analysis.
+
+### Use Total Beds, Not Household Type Breakdown
+
+Projects often have both adult-only (HouseholdType=1) and adult+child (HouseholdType=3) inventory records. In practice, bed utilization fluctuates between these household types over time - a bed designated for adults-only may house a family on a given night and vice versa. **For utilization and capacity analysis, sum `BedInventory` across all HouseholdType records for the project** rather than trying to match clients to household-type-specific inventory.
+
+```r
+# Preferred: total beds per project on a date (sum across household types)
+project_beds <- inventory_on_date %>%
+  group_by(ProjectID) %>%
+  summarise(TotalBeds = sum(BedInventory, na.rm = TRUE),
+            TotalUnits = sum(UnitInventory, na.rm = TRUE))
+```
+
+Only break out by HouseholdType when specifically required (e.g., HIC reporting).
+
 ### Point-in-Time Inventory
 ```r
 filter(InventoryStartDate <= target_date,
@@ -115,6 +131,8 @@ One active record per: ProjectID + CoCCode + HouseholdType + ESBedType + Availab
 
 ### Dedicated Beds (mutually exclusive categories)
 CHVetBedInventory + YouthVetBedInventory + VetBedInventory + CHYouthBedInventory + YouthBedInventory + CHBedInventory + OtherBedInventory = BedInventory
+
+These are rarely used in day-to-day analysis. Use `BedInventory` (total) unless specifically analyzing dedicated bed compliance.
 
 ## Funding Sources (2.06) - Filtering for Reports
 
