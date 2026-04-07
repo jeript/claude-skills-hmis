@@ -89,7 +89,16 @@ pit_inventory <- inventory_fixed %>%
 
 **Inventory fluctuates over time.** Each record has `InventoryStartDate` and `InventoryEndDate`. See `references/inventory-details.md` for full rules.
 
-**Inventory records are tied to a specific CoC Code.** Projects operating in multiple CoCs have separate inventory records per CoC. Always join/filter inventory through CoCCode when doing CoC-level analysis.
+**Inventory records are tied to a specific CoC Code.** Projects operating in multiple CoCs have separate inventory records per CoC. Always join/filter inventory through CoCCode when doing CoC-level analysis. **Inventory records only count if their CoCCode has an active record in ProjectCoC.csv** for the same ProjectID. Orphaned inventory (CoCCode not in ProjectCoC) should be excluded.
+
+```r
+# Validate inventory against active ProjectCoC records
+valid_inventory <- Inventory %>%
+  inner_join(
+    ProjectCoC %>% filter(is.na(DateDeleted)) %>% select(ProjectID, CoCCode),
+    by = c("ProjectID", "CoCCode")
+  )
+```
 
 ### Use Total Beds, Not Household Type Breakdown
 
